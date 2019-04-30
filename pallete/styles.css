@@ -230,7 +230,7 @@ background: rgba(0, 0, 0, 0.27);
     bottom: 0.08%;
     
     background: rgba(0, 0, 0, 0.22);
-    border-radius: 130px;
+    
 }
 .image-8{
     position: absolute;
@@ -249,4 +249,15 @@ background: rgba(0, 0, 0, 0.27);
     bottom: 0.08%;
     
     background: rgba(0, 0, 0, 0.2);
+}
+.btnC {
+    border: none;
+    background-color: red;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    left: 16px;
+    top: 180px;
 }
