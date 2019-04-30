@@ -88,3 +88,16 @@ previousColor.addEventListener('click', ()=> {
     
 }
     );
+
+    //color picker func
+document.addEventListener('click', (event)=> {
+    if(currentTool == 'picker' && event.target.style.backgroundColor !== ''
+    && event.target.id !== 'picker'){
+        prevColor = curColor;
+        prevCol.style.backgroundColor = curColor;
+        curColor = event.target.style.backgroundColor;
+        curCol.style.backgroundColor = curColor;
+        localStorage.setItem('currentColor', curColor);
+    }
+    
+} );
