@@ -127,3 +127,32 @@ theInput.addEventListener("input", function() {
      
 }
 }
+
+img1.addEventListener('click', (event)=>{
+    justDoIt() 
+})
+
+img2.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img3.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img4.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img5.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img6.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img7.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img8.addEventListener('click', (event)=>{
+    justDoIt()
+})
+img9.addEventListener('click', (event)=>{
+    justDoIt()
+})
