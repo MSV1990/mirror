@@ -94,7 +94,6 @@ localStorage.setItem('currentToolcolor', '#eee');
 previousColor.addEventListener('click', ()=> {
     curColor = prevColor;
     curCol.style.backgroundColor = prevColor;
-    localStorage.setItem('currentColor',curColor);
     
 }
     );
@@ -106,7 +105,7 @@ document.addEventListener('click', (event)=> {
             prevCol.style.backgroundColor = curColor;
             curColor = event.target.style.backgroundColor;
             curCol.style.backgroundColor = curColor;
-            localStorage.setItem('currentColor', curColor);
+            
         }
         
 } );
@@ -163,3 +162,11 @@ img8.addEventListener('click', (event)=>{
 img9.addEventListener('click', (event)=>{
     justDoIt()
 })
+window.onload = function(){
+    if(localStorage.getItem('currentTool') !== null){
+        let tool = localStorage.getItem('currentTool');
+        let color = localStorage.getItem('currentToolcolor');
+        currentTool = tool;
+        document.getElementById(tool).style.backgroundColor = color;
+    }
+}
