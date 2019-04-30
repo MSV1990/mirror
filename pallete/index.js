@@ -1,4 +1,14 @@
-
+//variables
+let bucket  = document.getElementById('bucket'),
+picker = document.getElementById('picker'),
+move = document.getElementById('move'),
+transform = document.getElementById('transform'),
+currentColor = document.getElementById('currentColor'),
+previousColor = document.getElementById('previousColor'),
+currentTool = 'none',
+prevColor = document.getElementById('prevCol').style.backgroundColor,
+curColor = document.getElementById('curCol').style.backgroundColor,
+theInput = document.getElementById("color");
 
 
 //select tool with shortcut
@@ -41,7 +51,7 @@ localStorage.setItem('currentToolcolor', '#eee');
       }
     };
 
-    //select tool
+//select tool
 picker.addEventListener('click', () => {
     currentTool = 'picker';
 picker.style.backgroundColor = '#eee';
@@ -88,22 +98,20 @@ previousColor.addEventListener('click', ()=> {
     
 }
     );
-
-    //color picker func
+//color picker func
 document.addEventListener('click', (event)=> {
-    if(currentTool == 'picker' && event.target.style.backgroundColor !== ''
-    && event.target.id !== 'picker'){
-        prevColor = curColor;
-        prevCol.style.backgroundColor = curColor;
-        curColor = event.target.style.backgroundColor;
-        curCol.style.backgroundColor = curColor;
-        localStorage.setItem('currentColor', curColor);
-    }
-    
+        if(currentTool == 'picker' && event.target.style.backgroundColor !== ''
+        && event.target.id !== 'picker'){
+            prevColor = curColor;
+            prevCol.style.backgroundColor = curColor;
+            curColor = event.target.style.backgroundColor;
+            curCol.style.backgroundColor = curColor;
+            localStorage.setItem('currentColor', curColor);
+        }
+        
 } );
-
 // select color input
-theInput.addEventListener("input", function() {
+   theInput.addEventListener("input", function() {
     theColor = theInput.value;
     prevColor = curColor;
     prevCol.style.backgroundColor = curColor;
@@ -112,22 +120,21 @@ theInput.addEventListener("input", function() {
     
     });
 
-    //tools functions
+//tools functions
    function justDoIt(){
-    if(currentTool == 'bucket'){
-        event.target.style.backgroundColor = curColor;
+        if(currentTool == 'bucket'){
+            event.target.style.backgroundColor = curColor;
+        }
+        if(currentTool == 'transform' &&  event.target.style.borderRadius == '130px'){
+            event.target.style.borderRadius = '0';
+        }
+        else if(currentTool == 'transform'){
+            event.target.style.borderRadius = '130px'; 
+        }
+        if(currentTool == 'move'){
+         
     }
-    if(currentTool == 'transform' &&  event.target.style.borderRadius == '130px'){
-        event.target.style.borderRadius = '0';
-    }
-    else if(currentTool == 'transform'){
-        event.target.style.borderRadius = '130px'; 
-    }
-    if(currentTool == 'move'){
-     
 }
-}
-
 img1.addEventListener('click', (event)=>{
     justDoIt() 
 })
