@@ -139,6 +139,46 @@ document.addEventListener('click', (event)=> {
             localStorage.setItem(divR,'130px' );
         }
         if(currentTool == 'move'){
+            let div = document.getElementById(event.target.id);
+
+div.onmousedown = function(e) {
+
+  var coords = getCoords(div);
+  var shiftX = e.pageX - coords.left;
+  var shiftY = e.pageY - coords.top;
+
+  div.style.position = 'absolute';
+  moveAt(e);
+
+  div.style.zIndex = 1000; 
+
+  function moveAt(e) {
+    div.style.left = e.pageX - shiftX + 'px';
+    div.style.top = e.pageY - shiftY + 'px';
+  }
+
+  document.onmousemove = function(e) {
+    moveAt(e);
+  };
+
+  div.onmouseup = function() {
+    document.onmousemove = null;
+    div.onmouseup = null;
+  };
+
+}
+
+div.ondragstart = function() {
+  return false;
+};
+
+function getCoords(elem) {  
+  var box = elem.getBoundingClientRect();
+  return {
+    top: box.top + pageYOffset,
+    left: box.left + pageXOffset
+  };
+}
          
     }
 }

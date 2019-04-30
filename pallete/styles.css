@@ -24,7 +24,7 @@ ul{
 .btn:hover {background: #eee;}
 .top-bar{
     position: absolute;
-width: 1441px;
+width: 1320px;
 height: 48px;
 box-shadow: 0 4px 4px rgba(0,0,0,0.5);
 
@@ -160,93 +160,109 @@ left: 16px;
 top: 168px;
 
 }
-.image-list{
+/* .image-list{
 position: absolute;
 width: 725px;
 height: 731px;
 left: 674px;
 top: 127px;
-}
+} */
 .image-1{
 
 position: absolute;
-left: 0%;
-right: 67.42%;
-top: 0%;
-bottom: 67.42%;
+width: 200px;
+height: 200px;
+left:  674px;
+right: 0px;
+top: 127px;
+bottom: 0px;
 
 background: rgba(0, 0, 0, 0.2);
 }
 .image-2{
     position: absolute;
-left: 33.68%;
-right: 33.74%;
-top: 0%;
-bottom: 67.42%;
+    width: 200px;
+    height: 200px;
+    left:  880px;
+    right: 0px;
+    top: 127px;
+    bottom: 0px;
 
 background: rgba(0, 0, 0, 0.26);
 }
 .image-3{
     position: absolute;
-left: 67.36%;
-right: 0.06%;
-top: 0%;
-bottom: 67.42%;
+    width: 200px;
+    height: 200px;
+    left:  1086px;
+    right: 0px;
+    top: 127px;
+    bottom: 0px;
 
 background: rgba(0, 0, 0, 0.25);
 }
 .image-4{
     position: absolute;
-left: 0%;
-right: 67.42%;
-top: 33.67%;
-bottom: 33.75%;
+width: 200px;
+height: 200px;
+left:  674px;
+right: 0px;
+top: 333px;
+bottom: 0px;
 
 background: rgba(0, 0, 0, 0.27);
 }
 .image-5{
     position: absolute;
-    left: 33.68%;
-    right: 33.74%;
-    top: 33.67%;
-    bottom: 33.75%;
+    width: 200px;
+    height: 200px;
+    left:  880px;
+    right: 0px;
+    top: 333px;
+    bottom: 0px;
     
     background: rgba(0, 0, 0, 0.19);
 }
 .image-6{
     position: absolute;
-    left: 67.36%;
-    right: 0.06%;
-    top: 33.67%;
-    bottom: 33.75%;
-    
+    width: 200px;
+    height: 200px;
+    left:  1086px;
+    right: 0px;
+    top: 333px;
+    bottom: 0px;
     background: rgba(0, 0, 0, 0.21);
 }
 .image-7{
     position: absolute;
-    left: 0%;
-    right: 67.42%;
-    top: 67.34%;
-    bottom: 0.08%;
-    
+width: 200px;
+height: 200px;
+left:  674px;
+right: 0px;
+top: 540px;
+bottom: 0px;
     background: rgba(0, 0, 0, 0.22);
     
 }
 .image-8{
     position: absolute;
-    left: 33.68%;
-    right: 33.74%;
-    top: 67.34%;
-    bottom: 0.08%;
+    width: 200px;
+    height: 200px;
+    left:  880px;
+    right: 0px;
+    top: 540px;
+    bottom: 0px;
     
     background: rgba(0, 0, 0, 0.23);
 }
 .image-9{
     position: absolute;
-    left: 67.36%;
-    right: 0.06%;
-    top: 67.34%;
-    bottom: 0.08%;
+    width: 200px;
+    height: 200px;
+    left:  1086px;
+    right: 0px;
+    top: 540px;
+    bottom: 0px;
     
     background: rgba(0, 0, 0, 0.2);
 }
