@@ -79,3 +79,12 @@ move.style.backgroundColor = '';
 localStorage.setItem('currentTool', 'transform');
 localStorage.setItem('currentToolcolor', '#eee');
 });
+
+//set previous color as current
+previousColor.addEventListener('click', ()=> {
+    curColor = prevColor;
+    curCol.style.backgroundColor = prevColor;
+    localStorage.setItem('currentColor',curColor);
+    
+}
+    );
