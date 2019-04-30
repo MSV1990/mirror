@@ -111,3 +111,19 @@ theInput.addEventListener("input", function() {
     curCol.style.backgroundColor = theColor;
     
     });
+
+    //tools functions
+   function justDoIt(){
+    if(currentTool == 'bucket'){
+        event.target.style.backgroundColor = curColor;
+    }
+    if(currentTool == 'transform' &&  event.target.style.borderRadius == '130px'){
+        event.target.style.borderRadius = '0';
+    }
+    else if(currentTool == 'transform'){
+        event.target.style.borderRadius = '130px'; 
+    }
+    if(currentTool == 'move'){
+     
+}
+}
