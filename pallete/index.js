@@ -101,3 +101,13 @@ document.addEventListener('click', (event)=> {
     }
     
 } );
+
+// select color input
+theInput.addEventListener("input", function() {
+    theColor = theInput.value;
+    prevColor = curColor;
+    prevCol.style.backgroundColor = curColor;
+    curColor = theColor;
+    curCol.style.backgroundColor = theColor;
+    
+    });
