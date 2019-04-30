@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
@@ -122,7 +123,7 @@ theInput.addEventListener('input', () => {
 });
 
 // tools functions
-function justDoIt() {
+function justDoIt(event) {
   if (currentTool === 'bucket') {
     event.target.style.backgroundColor = curColor;
     const divId = event.target.id;
@@ -132,16 +133,15 @@ function justDoIt() {
     event.target.style.borderRadius = '0';
     const divR = `${event.target.id}r`;
     localStorage.setItem(divR, 'o');
-  } else if (currentTool == 'transform') {
+  } else if (currentTool === 'transform') {
     event.target.style.borderRadius = '130px';
     const divR = `${event.target.id}r`;
     localStorage.setItem(divR, '130px');
   }
   if (currentTool === 'move') {
     const div = document.getElementById(event.target.id);
-
+    function getCoords(){};
     div.onmousedown = function (e) {
-
       const coords = getCoords(div);
       const shiftX = e.pageX - coords.left;
       const shiftY = e.pageY - coords.top;
@@ -164,7 +164,6 @@ function justDoIt() {
         document.onmousemove = null;
         div.onmouseup = null;
       };
-
     };
 
     div.ondragstart = function () {
@@ -181,34 +180,34 @@ function justDoIt() {
   }
 }
 img1.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 
 img2.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img3.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img4.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img5.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img6.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img7.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img8.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
 img9.addEventListener('click', (event) => {
-  justDoIt();
+  justDoIt(event);
 });
-window.onload = function () {
+window.onload = function saved() {
   // saved tool
   if (localStorage.getItem('currentTool') !== null) {
     const tool = localStorage.getItem('currentTool');
