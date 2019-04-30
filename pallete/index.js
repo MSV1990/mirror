@@ -1,5 +1,4 @@
 /* eslint-disable func-names */
-/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 // variables
