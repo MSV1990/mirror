@@ -40,3 +40,42 @@ localStorage.setItem('currentToolcolor', '#eee');
           localStorage.setItem('currentToolcolor', '#eee');
       }
     };
+
+    //select tool
+picker.addEventListener('click', () => {
+    currentTool = 'picker';
+picker.style.backgroundColor = '#eee';
+bucket.style.backgroundColor = '';
+transform.style.backgroundColor = '';
+move.style.backgroundColor = '';
+localStorage.setItem('currentTool', 'picker');
+localStorage.setItem('currentToolcolor', '#eee');
+});
+
+bucket.addEventListener('click', ()=> {
+    currentTool = 'bucket';
+    picker.style.backgroundColor = '';
+bucket.style.backgroundColor = '#eee';
+transform.style.backgroundColor = '';
+move.style.backgroundColor = '';
+localStorage.setItem('currentTool', 'bucket');
+localStorage.setItem('currentToolcolor', '#eee');
+});
+move.addEventListener('click', () => {
+    currentTool = 'move';
+    picker.style.backgroundColor = '';
+bucket.style.backgroundColor = '';
+transform.style.backgroundColor = '';
+move.style.backgroundColor = '#eee';
+localStorage.setItem('currentTool', 'move');
+localStorage.setItem('currentToolcolor', '#eee');
+});
+transform.addEventListener('click', ()=> {
+    currentTool = 'transform';
+    picker.style.backgroundColor = '';
+bucket.style.backgroundColor = '';
+transform.style.backgroundColor = '#eee';
+move.style.backgroundColor = '';
+localStorage.setItem('currentTool', 'transform');
+localStorage.setItem('currentToolcolor', '#eee');
+});
