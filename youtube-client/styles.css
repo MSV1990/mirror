@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+body{
+  background-image: url(./yt_logo_rgb_light.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: 50vh;
+
+
+}
+
+/* Style the search field */
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid #282828;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #282828 ;
+  color: whitesmoke;
+  font-size: 17px;
+  border: 1px solid #282828;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  color: #FF0000;
+}
+
+/* Clear floats
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+} */
