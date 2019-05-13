@@ -2,9 +2,17 @@
   box-sizing: border-box;
 }
 body{
-    background: #e4e4e4;
+    background: #282828;
 }
-
+/* .logo{
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  width:795px;
+  height: 200px;
+  z-index: 99;
+  background: url(yt_logo_rgb_dark.png) center no-repeat;
+} */
 #loader {
   position: absolute;
   left: 50%;
@@ -51,11 +59,11 @@ body{
   to{ bottom:0; opacity:1 }
 }
 .video{
-  width:320px;
+  /* width:320px;
   height: 385px;
   text-overflow: ellipsis;
-  overflow: hidden;
-  padding: 0;
+  overflow: hidden; */
+  /* padding: 0;
   margin: 0;
   list-style: none;
   display: -webkit-box;
@@ -65,19 +73,42 @@ body{
   display: flex;
   -webkit-flex-flow: row wrap;
   justify-content: space-around;
-  list-style: none;
+  list-style: none; */
 
 }
-.video-list{
 
+.video-list{
+  padding:0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  width:100%;
+  overflow-y: hidden;
+  height: 50vw;
+  max-height: 100vh;
 }
 
 .video-item{
+  background: #FFFF;
+  height: 385px;
+  min-width: 100%;
+  width: 100%;
+  color: #282828;
+  margin-right: 5px;
+  margin-left:5px;
+  text-align: center;
 }
 .video-description{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space:pre-wrap;
+  height: 90px;
 }
 /* Style the search field */
 form.search input[type=text] {
@@ -86,7 +117,7 @@ form.search input[type=text] {
   border: 1px solid #282828;
   float: left;
   width: 80%;
-  background: #f1f1f1;
+  background: #ffff;
 }
 
 /* Style the submit button */
@@ -94,7 +125,7 @@ form.search button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #282828 ;
+  background: #FF0000 ;
   color: whitesmoke;
   font-size: 17px;
   border: 1px solid #282828;
@@ -103,7 +134,7 @@ form.search button {
 }
 
 form.search button:hover {
-  color: #FF0000;
+  color: #282828;
 }
 
 /* Clear floats

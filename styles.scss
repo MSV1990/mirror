@@ -1,0 +1,11 @@
+.video-list {
+  --n: 1;
+  width: 100%;
+  width: calc(var(--n)*100%);
+
+  img {
+    min-width: 100%;
+    width: 100%;
+    width: calc(100%/var(--n));
+  }
+}

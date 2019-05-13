@@ -1,5 +1,6 @@
 const markup = `<div class="wrapper">
 <div id="loader"></div>
+<div class="logo"></div>
 <form class="search" id="form" onsubmit="return false;">
   <input type="text" placeholder="Search for videos..." name="search" id="search">
   <button type="submit" id="submit-btn"><i class="fas fa-search"></i></button>
