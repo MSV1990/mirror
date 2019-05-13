@@ -2,14 +2,83 @@
   box-sizing: border-box;
 }
 body{
-  background-image: url(./yt_logo_rgb_light.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: 50vh;
+    background: #e4e4e4;
+}
 
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+  background: url(youtube_social_icon_red.png) center no-repeat;
+  margin: -75px 0 0 -75px;
+  border: 5px solid #282828;
+  border-bottom: 5px solid #FF0000;
+  border-radius: 50%;
+  border-top: 5px solid #FF0000;
+  width: 120px;
+  height: 120px;
+  display:none;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 }
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom {
+  from{ bottom:-100px; opacity:0 }
+  to{ bottom:0; opacity:1 }
+}
+.video{
+  width:320px;
+  height: 385px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;
+
+}
+.video-list{
 
 }
 
+.video-item{
+}
+.video-description{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space:pre-wrap;
+}
 /* Style the search field */
 form.search input[type=text] {
   padding: 10px;
