@@ -7,13 +7,27 @@ const markup = `
   <button type="submit" id="submit-btn"><i class="fas fa-search"></i></button>
 </form>
 <ul id="ul" class="video-list">
-</ul><div class="popup">
-<span class="popuptext" class='show' id="myPopup"></span>
-</div>
-
+</ul>
+<div class="popup">
+    <span class="popuptext" class='show' id="myPopup"></span>
+    </div>
+    <div><a class="prev" id=prev>&#10094;</a>
+    <a class="next" id=next>&#10095;</a>
+    </div>;
+    <div class="controls" id="controls">
+  <span class="dot" id="dotFirst">1</span>
+  <span class="dot" id="dotPrev"></span>
+  <span class="dot" id="dotCurr"></span>
+  <span class="dot" id="dotLast"></span>
 `;
 document.body.innerHTML = markup;
 let nextPageToken = 'undefined';
+const dotPrev = document.getElementById('dotPrev');
+const dotCurr = document.getElementById('dotCurr');
+const controls = document.getElementById('controls');
+const dotFirst = document.getElementById('dotFirst');
+let currentPage;
+const dotLast = document.getElementById('dotLast');
 let theEnd = false;
 const logo = document.getElementById('logo');
 const loader = document.getElementById('loader');
@@ -22,10 +36,8 @@ const apikey = 'AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y';// 'AIzaSyAFhDSkr_31sGD
 const submit = document.getElementById('submit-btn');
 let searchRequest = false;
 const popup = document.getElementById('myPopup');
-let objectr1 = false;
-let objectr2 = false;
-let objectr3 = false;
-let objectr4 = false;
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
 let searchVideoId = [];
 
 //  throttle for scroll
@@ -40,10 +52,12 @@ function throttle(fn, wait) {
 }
 //  load more results function
 function loadMore() {
-  if ((container.scrollLeft + container.clientWidth + 1400) >= container.scrollWidth
+  if ((container.scrollLeft + (container.clientWidth * 2)) >= container.scrollWidth
     && nextPageToken !== 'undefined' && !theEnd) {
     popup.classList.remove('show');
+
     loader.style.display = 'block';
+    searchVideoId = [];
     fetch(`https://www.googleapis.com/youtube/v3/search?pageToken=${nextPageToken}&key=${apikey}&type=video&part=snippet&order=viewCount&maxResults=15&q=${searchRequest}`)
       .then((response) => {
         if (response.ok) {
@@ -52,11 +66,7 @@ function loadMore() {
         throw new Error('Network response was not ok :(( ');
       })
       .then((data) => {
-        if (data.items.length === 0) {
-          theEnd = true;
-        }
         nextPageToken = `${data.nextPageToken}`;
-        objectr3 = data;
         for (let i = 0; i < data.items.length; i += 1) {
           searchVideoId.push(data.items[i].id.videoId);
         }
@@ -69,7 +79,6 @@ function loadMore() {
             throw new Error('Network response was not ok :(( ');
           })
           .then((data2) => {
-            objectr4 = data2;
             for (let i = 0; i < data2.items.length; i += 1) {
               const imgList = document.createElement('li');
               imgList.setAttribute('class', 'video-item');
@@ -86,9 +95,13 @@ function loadMore() {
           <div class="video-description">${data2.items[i].snippet.description}</div>
           </div>`;
               container.appendChild(imgList);
+              if (container.scrollWidth > container.clientWidth) {
+                next.classList.add('show');
+              }
             }
             searchVideoId = [];
             loader.style.display = 'none';
+            dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
           });
       })
       .catch((error) => {
@@ -99,6 +112,17 @@ function loadMore() {
       });
   }
 }
+
+// calculate pages after resize
+window.addEventListener('resize', () => {
+  dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
+  currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
+  if (currentPage <= 0) {
+    dotPrev.innerHTML = '';
+  }
+  dotPrev.innerHTML = currentPage;
+  dotCurr.innerHTML = currentPage + 1;
+});
 
 //  initial function for search request
 function init() {
@@ -117,8 +141,8 @@ function init() {
         popup.classList.toggle('show');
       }
 
-      objectr1 = data;
       nextPageToken = `${data.nextPageToken}`;
+      searchVideoId = [];
       for (let i = 0; i < data.items.length; i += 1) {
         searchVideoId.push(data.items[i].id.videoId);
       }
@@ -132,7 +156,6 @@ function init() {
           throw new Error('Network response was not ok :(( ');
         })
         .then((data2) => {
-          objectr2 = data2;
           for (let i = 0; i < data2.items.length; i += 1) {
             const imgList = document.createElement('li');
             imgList.setAttribute('class', 'video-item');
@@ -150,6 +173,12 @@ function init() {
             </div>`;
             container.appendChild(imgList);
           }
+          if (container.scrollWidth > container.clientWidth) {
+            next.classList.add('show');
+          }
+          controls.style.visibility = 'visible';
+          dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
+          dotCurr.innerHTML = 1;
           loader.style.display = 'none';
           logo.style.display = 'none';
           searchVideoId = [];
@@ -166,6 +195,12 @@ function init() {
 //  >>>>>> Start <<<<<<<<<
 submit.addEventListener('click', () => {
   if (document.getElementById('search').value !== searchRequest) {
+    controls.style.visibility = 'invisible';
+    dotCurr.innerHTML = '';
+    dotPrev.innerHTML = '';
+    dotLast.innerHTML = '';
+    next.classList.remove('show');
+    prev.classList.remove('show');
     popup.classList.remove('show');
     loader.style.display = 'block';
     searchRequest = document.getElementById('search').value;
@@ -174,11 +209,35 @@ submit.addEventListener('click', () => {
   }
 });
 
+
 //  hide popup message on click
 popup.addEventListener('click', () => popup.classList.remove('show'));
 
 //  load more results with scroll throttle
-container.addEventListener('scroll', throttle(loadMore, 300));
+container.addEventListener('scroll', throttle(loadMore, 500));
+
+//   show/hide prev next buttons + calculate page number
+container.addEventListener('scroll', () => {
+  if (container.scrollLeft > 10) {
+    prev.classList.add('show');
+  }
+  if (container.scrollLeft < 10) {
+    dotPrev.innerHTML = '';
+    prev.classList.remove('show');
+    dotCurr.innerHTML = 1;
+  }
+  if (container.scrollLeft + 50 > container.clientWidth) {
+    currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
+    dotPrev.innerHTML = currentPage;
+    dotCurr.innerHTML = currentPage + 1;
+  }
+  if (container.scrollWidth === container.scrollLeft + container.clientWidth) {
+    next.classList.remove('show');
+  }
+  if (container.scrollWidth > container.scrollLeft + container.clientWidth) {
+    next.classList.add('show');
+  }
+});
 
 //  grab scroll section
 let isDown = false;
@@ -203,6 +262,34 @@ container.addEventListener('mousemove', (e) => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - container.offsetLeft;
-  const walk = (x - startX) - 1000; // scroll-fast
+  const walk = (x - startX) * 5; // scroll-fast
   container.scrollLeft = (scrollLeft - walk);
+});
+
+next.addEventListener('click', () => {
+  container.scrollLeft += container.clientWidth;
+});
+
+prev.addEventListener('click', () => {
+  container.scrollLeft -= container.clientWidth;
+});
+
+//  scroll previous
+dotPrev.addEventListener('click', () => {
+  container.scrollLeft = `${container.scrollLeft - container.clientWidth}`;
+});
+
+//  scroll next
+dotCurr.addEventListener('click', () => {
+  container.scrollLeft = `${container.scrollLeft + container.clientWidth}`;
+});
+
+//  scroll to first
+dotFirst.addEventListener('click', () => {
+  container.scrollLeft = 0;
+});
+
+//  scroll to last
+dotLast.addEventListener('click', () => {
+  container.scrollLeft = container.scrollWidth;
 });
