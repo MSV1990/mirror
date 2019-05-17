@@ -3,7 +3,7 @@
 }
 body{
     background: #282828;
-    font-family: cursive;
+    font-family: 'Lato', sans-serif;
 }
 
 .video-list::-webkit-scrollbar {
