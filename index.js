@@ -39,8 +39,9 @@ const popup = document.getElementById('myPopup');
 const prev = document.getElementById('prev');
 const next = document.getElementById('next');
 let searchVideoId = [];
-const itemsPerPage = Math.floor(container.clientWidth / 320);
-const calculatedItemWidth = container.clientWidth / itemsPerPage - 10;
+let itemsPerPage = Math.floor(container.clientWidth / 320);
+let calculatedItemWidth = container.clientWidth / itemsPerPage - 10;
+let resizedItems;
 
 //  throttle for scroll
 function throttle(fn, wait) {
@@ -105,7 +106,6 @@ function loadMore() {
             searchVideoId = [];
             loader.style.display = 'none';
             dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
-            // imgList.style.width;
           });
       })
       .catch((error) => {
@@ -121,6 +121,13 @@ function loadMore() {
 window.addEventListener('resize', () => {
   dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
   currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
+  itemsPerPage = Math.floor(container.clientWidth / 320);
+  calculatedItemWidth = container.clientWidth / itemsPerPage - 10;
+  currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
+  resizedItems = document.getElementsByClassName('video-item');
+  for (let i = 0; i < resizedItems.length; i += 1) {
+    resizedItems[i].style.width = `${calculatedItemWidth}px`;
+  }
   if (currentPage <= 0) {
     dotPrev.innerHTML = '';
   }
