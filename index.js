@@ -21,7 +21,7 @@ const markup = `
   <span class="dot" id="dotLast"></span>
 `;
 document.body.innerHTML = markup;
-let nextPageToken = 'undefined';
+let nextPageToken;
 const dotPrev = document.getElementById('dotPrev');
 const dotCurr = document.getElementById('dotCurr');
 const controls = document.getElementById('controls');
@@ -56,7 +56,7 @@ function throttle(fn, wait) {
 //  load more results function
 function loadMore() {
   if ((container.scrollLeft + (container.clientWidth * 2)) >= container.scrollWidth
-    && nextPageToken !== 'undefined' && !theEnd) {
+    && nextPageToken && !theEnd) {
     popup.classList.remove('show');
 
     loader.style.display = 'block';
@@ -70,9 +70,9 @@ function loadMore() {
       })
       .then((data) => {
         nextPageToken = `${data.nextPageToken}`;
-        for (let i = 0; i < data.items.length; i += 1) {
-          searchVideoId.push(data.items[i].id.videoId);
-        }
+        data.items.forEach((el) => {
+          searchVideoId.push(el.id.videoId);
+        });
 
         fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apikey}&id=${searchVideoId}&part=snippet,statistics`)
           .then((response) => {
@@ -82,27 +82,28 @@ function loadMore() {
             throw new Error('Network response was not ok :(( ');
           })
           .then((data2) => {
-            for (let i = 0; i < data2.items.length; i += 1) {
+            data2.items.forEach((el) => {
               const imgList = document.createElement('li');
               imgList.setAttribute('class', 'video-item');
               imgList.setAttribute('style', `width:${calculatedItemWidth}px`);
-              let date = data2.items[i].snippet.publishedAt;
+              let date = el.snippet.publishedAt;
               date = date.split('T');
               imgList.innerHTML = `<div class="video">
-          <img class="video-preview" alt="preview-image" src="${data2.items[i].snippet.thumbnails.medium.url}"/>
-          <div class="video-title"><a target="_blank" href=https://www.youtube.com/watch?v=${data2.items[i].id}>${data2.items[i].snippet.title}</a></div>
+          <img class="video-preview" alt="preview-image" src="${el.snippet.thumbnails.medium.url}"/>
+          <div class="video-title"><a target="_blank" href=https://www.youtube.com/watch?v=${el.id}>${el.snippet.title}</a></div>
           <div class="video-info">
-          <div class="video-info-channel-name"><i class="fas fa-user"></i> ${data2.items[i].snippet.channelTitle}</div>
+          <div class="video-info-channel-name"><i class="fas fa-user"></i> ${el.snippet.channelTitle}</div>
           <div class="video-info-date"><i class="far fa-calendar-alt"></i> ${date[0]}</div>
-          <div class="video-info-view-count"><i class="far fa-eye"></i> ${data2.items[i].statistics.viewCount}</div>
+          <div class="video-info-view-count"><i class="far fa-eye"></i> ${el.statistics.viewCount}</div>
           </div>
-          <div class="video-description">${data2.items[i].snippet.description}</div>
+          <div class="video-description">${el.snippet.description}</div>
           </div>`;
               container.appendChild(imgList);
-              if (container.scrollWidth > container.clientWidth) {
-                next.classList.add('show');
-              }
+            });
+            if (container.scrollWidth > container.clientWidth) {
+              next.classList.add('show');
             }
+
             searchVideoId = [];
             loader.style.display = 'none';
             dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
@@ -120,7 +121,7 @@ function loadMore() {
 // calculate pages after resize and item width
 window.addEventListener('resize', () => {
   dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
-  currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
+  currentPage = Math.ceil(container.scrollLeft / container.clientWidth);
   itemsPerPage = Math.floor(container.clientWidth / 320);
   calculatedItemWidth = container.clientWidth / itemsPerPage - 10;
   currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
@@ -128,10 +129,11 @@ window.addEventListener('resize', () => {
   for (let i = 0; i < resizedItems.length; i += 1) {
     resizedItems[i].style.width = `${calculatedItemWidth}px`;
   }
+  container.scrollLeft = container.clientWidth / itemsPerPage * currentPage;
+
   if (currentPage <= 0) {
     dotPrev.innerHTML = '';
-  }
-  dotPrev.innerHTML = currentPage;
+  } else { dotPrev.innerHTML = currentPage; }
   dotCurr.innerHTML = currentPage + 1;
 });
 
@@ -154,10 +156,9 @@ function init() {
 
       nextPageToken = `${data.nextPageToken}`;
       searchVideoId = [];
-      for (let i = 0; i < data.items.length; i += 1) {
-        searchVideoId.push(data.items[i].id.videoId);
-      }
-
+      data.items.forEach((el) => {
+        searchVideoId.push(el.id.videoId);
+      });
 
       fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apikey}&id=${searchVideoId}&part=snippet,statistics`)
         .then((response) => {
@@ -167,28 +168,29 @@ function init() {
           throw new Error('Network response was not ok :(( ');
         })
         .then((data2) => {
-          for (let i = 0; i < data2.items.length; i += 1) {
+          data2.items.forEach((el) => {
             const imgList = document.createElement('li');
             imgList.setAttribute('class', 'video-item');
             imgList.setAttribute('style', `width:${calculatedItemWidth}px`);
-            let date = data2.items[i].snippet.publishedAt;
+            let date = el.snippet.publishedAt;
             date = date.split('T');
             imgList.innerHTML = `<div class="video">
-            <img class="video-preview" alt="preview-image" src="${data2.items[i].snippet.thumbnails.medium.url}"/>
-            <div class="video-title"><a target="_blank" href=https://www.youtube.com/watch?v=${data2.items[i].id}>${data2.items[i].snippet.title}</a></div>
-            <div class="video-info">
-            <div class="video-info-channel-name"><i class="fas fa-user"></i> ${data2.items[i].snippet.channelTitle}</div>
-            <div class="video-info-date"><i class="far fa-calendar-alt"></i> ${date[0]}</div>
-            <div class="video-info-view-count"><i class="far fa-eye"></i> ${data2.items[i].statistics.viewCount}</div>
-            </div>
-            <div class="video-description">${data2.items[i].snippet.description}</div>
-            </div>`;
+        <img class="video-preview" alt="preview-image" src="${el.snippet.thumbnails.medium.url}"/>
+        <div class="video-title"><a target="_blank" href=https://www.youtube.com/watch?v=${el.id}>${el.snippet.title}</a></div>
+        <div class="video-info">
+        <div class="video-info-channel-name"><i class="fas fa-user"></i> ${el.snippet.channelTitle}</div>
+        <div class="video-info-date"><i class="far fa-calendar-alt"></i> ${date[0]}</div>
+        <div class="video-info-view-count"><i class="far fa-eye"></i> ${el.statistics.viewCount}</div>
+        </div>
+        <div class="video-description">${el.snippet.description}</div>
+        </div>`;
             container.appendChild(imgList);
-          }
+          });
 
           if (container.scrollWidth > container.clientWidth) {
             next.classList.add('show');
           }
+          container.scrollLeft = 10;
           controls.style.visibility = 'visible';
           dotLast.innerHTML = Math.ceil(container.scrollWidth / container.clientWidth);
           dotCurr.innerHTML = 1;
@@ -231,16 +233,16 @@ container.addEventListener('scroll', throttle(loadMore, 500));
 
 //   show/hide prev next buttons + calculate page number
 container.addEventListener('scroll', () => {
-  if (container.scrollLeft > 10) {
+  if (container.scrollLeft > 320) {
     prev.classList.add('show');
   }
-  if (container.scrollLeft < 10) {
+  if (container.scrollLeft < 320) {
     dotPrev.innerHTML = '';
     prev.classList.remove('show');
     dotCurr.innerHTML = 1;
   }
-  if (container.scrollLeft + 50 > container.clientWidth) {
-    currentPage = Math.ceil((container.scrollLeft) / container.clientWidth);
+  if (container.scrollLeft >= container.clientWidth) {
+    currentPage = Math.floor((container.scrollLeft) / container.clientWidth);
     dotPrev.innerHTML = currentPage;
     dotCurr.innerHTML = currentPage + 1;
   }
