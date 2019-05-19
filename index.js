@@ -129,7 +129,6 @@ window.addEventListener('resize', () => {
   for (let i = 0; i < resizedItems.length; i += 1) {
     resizedItems[i].style.width = `${calculatedItemWidth}px`;
   }
-  container.scrollLeft = container.clientWidth / itemsPerPage * currentPage;
 
   if (currentPage <= 0) {
     dotPrev.innerHTML = '';
