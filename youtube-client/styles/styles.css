@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+}
+body{
+    background: #282828;
+    font-family: 'Lato', 'sans-serif';
+}
+
+.video-list::-webkit-scrollbar {
+  display: none;
+}
+
+.video-list.active {
+  background: rgba(255,255,255,0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
+}
+
+a{
+  color: green;
+}
+.logo{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  background: url(../img/youtube_social_circle_red.png) center no-repeat;
+  width: 160px;
+  height: 160px;
+  margin: -75px 0 0 -75px;
+}
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+  background: url(../img/youtube_social_circle_red.png) center no-repeat;
+  margin: -75px 0 0 -75px;
+  border: 5px solid #282828;
+  border-bottom: 5px solid #FF0000;
+  border-radius: 50%;
+  border-top: 5px solid #FF0000;
+  width: 160px;
+  height: 160px;
+  display:none;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+.video-list{
+  padding:0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  transition: all 0.2s;
+  transform: scale(0.98);
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+  scroll-behavior: smooth;
+}
+
+.video-item{
+  background: linear-gradient(to bottom, #282828, #FF0000);
+  width: 320px;
+  flex-shrink: 0;
+  height: 100%;
+  color: #282828;
+  margin-right: 10px;
+  margin-left:10px;
+  text-align: center;
+  scroll-snap-align: start;
+  scroll-behavior: smooth;
+  border-radius: 1em;
+}
+.video-item:hover {
+  cursor: grab;
+}
+.video-description{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 199px;
+}
+
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid #282828;
+  float: left;
+  width: 80%;
+  background: #ffff;
+}
+
+
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: linear-gradient(to bottom, #282828,#FF0000) ;
+  color: whitesmoke;
+  font-size: 17px;
+  border: 1px solid #282828;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.search button:hover {
+  color: #282828;
+}
+
+/* Popup container */
+.popup {
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+    left: 50%;
+    top: 50%;
+}
+
+
+.popup .popuptext {
+  visibility: hidden;
+  width: 50vw;
+  background-color: #555;
+  color: #FF0000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  font-size: 2em;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  visibility: hidden;
+  cursor: pointer;
+  position: absolute;
+  top: 15%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: #FFFF;
+  font-weight: bold;
+  font-size: 2em;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover buttons */
+.prev:hover, .next:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+.next.show, .prev.show {
+  visibility: visible;
+}
+
+.controls {
+  display:inline-flex;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  visibility: hidden;
+}
+
+/* The dots indicators */
+.dot {
+  text-align: center ;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+  font-size: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #ff0000;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
